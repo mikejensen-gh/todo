@@ -5,23 +5,34 @@
     <button id="deleteAllTodos" @click="deleteAllTodos">Remove all todos</button>
   </div>
   <div id="todoList">
-    <ul id="unsolvedTodos">
+<!--     <ul id="todos">
       <li
-        v-for="todo in unsolvedTodos"
+        v-for="todo in todos"
         :key="todo.id"
+        :class="{ solved: todo.solved }"
       >
         {{ todo.title }}
         <button id="solveTodo" @click="solveTodo(todo.id)">-</button>
         <button id="deleteTodo" @click="deleteTodo">x</button>
       </li>
-    </ul>
-    <ul id="solvedTodos">
+    </ul> -->
+    <ul id="todos">
       <li
-        v-for="todo in solvedTodos"
+        v-for="(todo, index) in unsolvedTodos"
         :key="todo.id"
+        :class="{ solved: todo.solved }"
       >
-        {{ todo.title }}
-        <button id="solveTodo" @click="solveTodo(todo.id)">-</button>
+        Title: {{ todo.title }} {{ todo.id }} Index: {{ index }} Solved: {{ todo.solved }}
+        <button id="solveTodo" @click="solveTodo(index)">-</button>
+        <button id="deleteTodo" @click="deleteTodo">x</button>
+      </li>
+      <li
+        v-for="(todo, index) in solvedTodos"
+        :key="todo.id"
+        :class="{ solved: todo.solved }"
+      >
+        Title: {{ todo.title }} {{ todo.id }} Index: {{ index }} Solved: {{ todo.solved }}
+        <button id="solveTodo" @click="solveTodo(index)">-</button>
         <button id="deleteTodo" @click="deleteTodo">x</button>
       </li>
     </ul>
@@ -35,42 +46,36 @@ export default {
   data () {
     return {
       todos: [
-        {
-          id: 0,
-          title: 'todo0',
-          solved: false
-        },
-        {
-          id: 1,
-          title: 'todo1',
-          solved: false
-        },
-        {
-          id: 2,
-          title: 'solvedTodo2',
-          solved: true
-        }
       ],
 
-      currentId: 3
+      idCounter: 0
     }
   },
 
   methods: {
     addNewTodo: function () {
-      this.todos.push({
-        id: this.currentId,
-        title: `new todo${this.currentId}`,
-        solved: false
-      })
+      const todo = {}
 
-      this.currentId++
+      todo[this.idCounter] = {
+        title: `new todo`,
+        solved: false
+      }
+
+      this.todos.push(todo)
+
+      this.idCounter++
     },
     deleteAllTodos: function () {
       this.todos = []
     },
     solveTodo: function (id) {
-      this.todos[id].solved = !this.todos[id].solved;
+      const index = this.todos.indexOf()
+
+      this.todos[index].solved = !this.todos[index].solved
+      const todo = this.todos.splice(index, 1)
+      this.todos = this.todos.concat(todo)
+
+      console.log(this.todos)
     },
     deleteTodo: function () {
       return true
@@ -95,6 +100,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #solvedTodos {
+  color: red;
+}
+
+#todos .solved {
   color: red;
 }
 </style>
