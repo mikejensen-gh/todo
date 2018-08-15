@@ -2,8 +2,8 @@
 <div class="todo">
   <div id="todoControlsTop">
     <form>
-      <input v-model="newTodo" placeholder="Add a new todo...">
-      <button id="addTodo" v-on:click="addNewTodo">Add</button>
+      <input v-model="newTodo" placeholder="Add a new Todo...">
+      <button id="addNewTodo" v-on:click="addNewTodo">Add</button>
     </form>
   </div>
   <div id="todoList">
@@ -14,7 +14,7 @@
         :class="{ solved: todo.solved }"
       >
         {{ todo.title }}
-        <button class="solveTodo" @click="toggleSolvedState(todo.id)">Solve</button>
+        <button class="toggleSolvedState" @click="toggleSolvedState(todo.id)">Solve</button>
         <button class="deleteTodo" @click="deleteTodo(todo.id)">Delete</button>
       </li>
       <li
@@ -23,7 +23,7 @@
         :class="{ solved: todo.solved }"
       >
         {{ todo.title }}
-        <button class="solveTodo" @click="toggleSolvedState(todo.id)">Unsolve</button>
+        <button class="toggleSolvedState" @click="toggleSolvedState(todo.id)">Unsolve</button>
         <button class="deleteTodo" @click="deleteTodo(todo.id)">Delete</button>
       </li>
     </ul>
