@@ -1,8 +1,10 @@
 <template>
 <div class="todo">
-  <div id="todoControls">
-    <button id="addTodo" v-on:click="addNewTodo">Add new todo</button>
-    <button id="deleteAllTodos" @click="deleteAllTodos">Remove all todos</button>
+  <div id="todoControlsTop">
+    <form>
+      <input v-model="newTodo" placeholder="Add a new todo...">
+      <button id="addTodo" v-on:click="addNewTodo">Add</button>
+    </form>
   </div>
   <div id="todoList">
     <ul id="todos">
@@ -11,7 +13,7 @@
         :key="todo.id"
         :class="{ solved: todo.solved }"
       >
-        Title: {{ todo.title }}
+        {{ todo.title }}
         <button class="solveTodo" @click="toggleSolvedState(todo.id)">Solve</button>
         <button class="deleteTodo" @click="deleteTodo(todo.id)">Delete</button>
       </li>
@@ -20,11 +22,14 @@
         :key="todo.id"
         :class="{ solved: todo.solved }"
       >
-        Title: {{ todo.title }}
+        {{ todo.title }}
         <button class="solveTodo" @click="toggleSolvedState(todo.id)">Unsolve</button>
         <button class="deleteTodo" @click="deleteTodo(todo.id)">Delete</button>
       </li>
     </ul>
+  </div>
+  <div id="todoControlsBottom">
+    <button id="deleteAllTodos" @click="deleteAllTodos">Delete all</button>
   </div>
 </div>
 </template>
@@ -35,7 +40,8 @@ export default {
   data () {
     return {
       todos: [],
-      idCounter: 0
+      idCounter: 0,
+      newTodo: ''
     }
   },
 
@@ -43,12 +49,13 @@ export default {
     addNewTodo: function () {
       const todo = {
         id: [this.idCounter],
-        title: 'new todo',
+        title: this.newTodo || 'New Todo',
         solved: false
       }
 
       this.todos.push(todo)
       this.idCounter++
+      this.newTodo = ''
     },
 
     deleteAllTodos: function () {
