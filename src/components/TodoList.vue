@@ -5,35 +5,24 @@
     <button id="deleteAllTodos" @click="deleteAllTodos">Remove all todos</button>
   </div>
   <div id="todoList">
-<!--     <ul id="todos">
-      <li
-        v-for="todo in todos"
-        :key="todo.id"
-        :class="{ solved: todo.solved }"
-      >
-        {{ todo.title }}
-        <button id="solveTodo" @click="solveTodo(todo.id)">-</button>
-        <button id="deleteTodo" @click="deleteTodo">x</button>
-      </li>
-    </ul> -->
     <ul id="todos">
       <li
         v-for="(todo, index) in unsolvedTodos"
         :key="todo.id"
         :class="{ solved: todo.solved }"
       >
-        Title: {{ todo.title }} {{ todo.id }} Index: {{ index }} Solved: {{ todo.solved }}
-        <button id="solveTodo" @click="solveTodo(index)">-</button>
-        <button id="deleteTodo" @click="deleteTodo">x</button>
+        Title: {{ todo.title }}
+        <button class="solveTodo" @click="toggleTodoSolvedStatus(todo.id)">Solve</button>
+        <button class="deleteTodo" @click="deleteTodo">Delete</button>
       </li>
       <li
         v-for="(todo, index) in solvedTodos"
         :key="todo.id"
         :class="{ solved: todo.solved }"
       >
-        Title: {{ todo.title }} {{ todo.id }} Index: {{ index }} Solved: {{ todo.solved }}
-        <button id="solveTodo" @click="solveTodo(index)">-</button>
-        <button id="deleteTodo" @click="deleteTodo">x</button>
+        Title: {{ todo.title }}
+        <button class="solveTodo" @click="toggleTodoSolvedStatus(todo.id)">Unsolve</button>
+        <button class="deleteTodo" @click="deleteTodo">Delete</button>
       </li>
     </ul>
   </div>
@@ -45,38 +34,32 @@ export default {
   name: 'Todo',
   data () {
     return {
-      todos: [
-      ],
-
+      todos: [],
       idCounter: 0
     }
   },
 
   methods: {
     addNewTodo: function () {
-      const todo = {}
-
-      todo[this.idCounter] = {
-        title: `new todo`,
+      const todo = {
+        id: [this.idCounter],
+        title: 'new todo',
         solved: false
       }
 
       this.todos.push(todo)
-
       this.idCounter++
     },
+
     deleteAllTodos: function () {
       this.todos = []
     },
-    solveTodo: function (id) {
-      const index = this.todos.indexOf()
 
-      this.todos[index].solved = !this.todos[index].solved
-      const todo = this.todos.splice(index, 1)
-      this.todos = this.todos.concat(todo)
-
-      console.log(this.todos)
+    toggleTodoSolvedStatus: function (id) {
+      const todo = this.todos.find(obj => obj.id === id)
+      todo.solved = !todo.solved
     },
+
     deleteTodo: function () {
       return true
     }
@@ -92,7 +75,7 @@ export default {
       return this.todos.filter(function (todo) {
         return todo.solved
       })
-    },
+    }
   }
 }
 </script>
