@@ -3,33 +3,31 @@
   <div id="todoControlsTop">
     <form>
       <input v-model="newTodo" placeholder="Add a new Todo...">
-      <button id="addNewTodo" v-on:click="addNewTodo">Add</button>
+      <v-btn id="addNewTodo" v-on:click="addNewTodo">Add</v-btn>
     </form>
   </div>
   <div id="todoList">
     <ul id="todos">
-      <li
+      <v-list
         v-for="todo in unsolvedTodos"
         :key="todo.id"
-        :class="{ solved: todo.solved }"
       >
-        {{ todo.title }}
-        <button class="toggleSolvedState" @click="toggleSolvedState(todo.id)">Solve</button>
-        <button class="deleteTodo" @click="deleteTodo(todo.id)">Delete</button>
-      </li>
-      <li
+        <span class="todoTitle">{{ todo.title }}</span>
+        <v-btn small class="toggleSolvedState" @click="toggleSolvedState(todo.id)">Solve</v-btn>
+        <v-btn color="error" small class="deleteTodo" @click="deleteTodo(todo.id)">Delete</v-btn>
+      </v-list>
+      <v-list
         v-for="todo in solvedTodos"
         :key="todo.id"
-        :class="{ solved: todo.solved }"
       >
-        {{ todo.title }}
-        <button class="toggleSolvedState" @click="toggleSolvedState(todo.id)">Unsolve</button>
-        <button class="deleteTodo" @click="deleteTodo(todo.id)">Delete</button>
-      </li>
+        <span class="todoTitle solved">{{ todo.title }}</span>
+        <v-btn small class="toggleSolvedState" @click="toggleSolvedState(todo.id)">Unsolve</v-btn>
+        <v-btn color="error" small class="deleteTodo" @click="deleteTodo(todo.id)">Delete</v-btn>
+      </v-list>
     </ul>
   </div>
   <div id="todoControlsBottom">
-    <button id="deleteAllTodos" @click="deleteAllTodos">Delete all</button>
+    <v-btn color="error" id="deleteAllTodos" @click="deleteAllTodos">Delete all</v-btn>
   </div>
 </div>
 </template>
@@ -92,11 +90,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#solvedTodos {
-  color: red;
-}
-
-#todos .solved {
-  color: red;
+.solved {
+  font-style: italic;
+  text-decoration-line: line-through;
 }
 </style>
