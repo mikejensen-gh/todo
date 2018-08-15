@@ -1,6 +1,6 @@
 {
-  "name": "todo0",
-  "version": "1.0.0",
+  "name": "Sample todo app",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "node build/build.js",
