@@ -2,8 +2,8 @@
 <div class="todo">
   <div id="todoControlsTop">
     <form>
-      <input v-model="newTodo" placeholder="Add a new Todo...">
-      <v-btn id="addNewTodo" v-on:click="addNewTodo">Add</v-btn>
+      <input v-model="newTodo" @keyup.enter="addNewTodo" placeholder="Add a new todo...">
+      <v-btn id="addNewTodo" @click="addNewTodo">Add</v-btn>
     </form>
   </div>
   <div id="todoList">
@@ -12,22 +12,22 @@
         v-for="todo in unsolvedTodos"
         :key="todo.id"
       >
-        <span class="todoTitle">{{ todo.title }}</span>
-        <v-btn small class="toggleSolvedState" @click="toggleSolvedState(todo.id)">Solve</v-btn>
-        <v-btn color="error" small class="deleteTodo" @click="deleteTodo(todo.id)">Delete</v-btn>
+        <input class="todoTitle" v-model="todo.title" @blur="checkTodoTitle(todo.id)">
+        <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo.id)" small>Solve</v-btn>
+        <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small >Delete</v-btn>
       </v-list>
       <v-list
         v-for="todo in solvedTodos"
         :key="todo.id"
       >
-        <span class="todoTitle solved">{{ todo.title }}</span>
-        <v-btn small class="toggleSolvedState" @click="toggleSolvedState(todo.id)">Unsolve</v-btn>
-        <v-btn color="error" small class="deleteTodo" @click="deleteTodo(todo.id)">Delete</v-btn>
+        <input class="todoTitle solved" v-model="todo.title">
+        <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo.id)" small>Unsolve</v-btn>
+        <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small>Delete</v-btn>
       </v-list>
     </ul>
   </div>
   <div id="todoControlsBottom">
-    <v-btn color="error" id="deleteAllTodos" @click="deleteAllTodos">Delete all</v-btn>
+    <v-btn id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
   </div>
 </div>
 </template>
@@ -63,13 +63,28 @@ export default {
     toggleSolvedState: function (id) {
       const todo = this.todos.find(obj => obj.id === id)
       todo.solved = !todo.solved
+
+      if (todo.solved) {
+        const index = this.todos.indexOf(todo)
+
+        this.todos.splice(index, 1)
+        this.todos.push(todo)
+      }
     },
 
-    deleteTodo: function (id) {
-      const todo = this.todos.find(obj => obj.id === id)
+    deleteTodo: function (todo) {
+      // const todo = this.todos.find(obj => obj.id === id)
       const index = this.todos.indexOf(todo)
 
       this.todos.splice(index, 1)
+    },
+
+    checkTodoTitle: function (id) {
+      const todo = this.todos.find(obj => obj.id === id)
+
+      if (todo.title === '') {
+        this.deleteTodo(todo)
+      }
     }
   },
 
