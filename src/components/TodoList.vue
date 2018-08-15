@@ -7,15 +7,17 @@
     </form>
   </div>
   <div id="todoList">
-    <ul id="todos">
 
-      <v-list
-        v-for="todo in unsolvedTodos"
-        :key="todo.id"
-      >
-        <input class="todoTitle" v-model="todo.title" @blur="checkTodoTitle(todo.id)">
-        <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo.id)" small>Solve</v-btn>
-        <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small >Delete</v-btn>
+      <v-list>
+        <v-list-tile
+          v-for="todo in unsolvedTodos"
+          :key="todo.id"
+        >
+          <v-text-field class="todoTitle" v-model="todo.title" @blur="checkTodoTitle(todo.id)" solo></v-text-field>
+          <v-spacer></v-spacer>
+          <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo.id)" small>Solve</v-btn>
+          <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small >Delete</v-btn>
+        </v-list-tile>
       </v-list>
       
       <v-list>
@@ -30,7 +32,8 @@
             :key="todo.id"
           >
 
-            <input class="todoTitle solved" v-model="todo.title" @blur="checkTodoTitle(todo.id)">
+            <v-text-field class="todoTitle solved" v-model="todo.title" @blur="checkTodoTitle(todo.id)" solo></v-text-field>
+            <v-spacer></v-spacer>
             <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo.id)" small>Unsolve</v-btn>
             <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small>Delete</v-btn>
 
@@ -38,7 +41,6 @@
         </v-list-group>
       </v-list>
 
-    </ul>
   </div>
   <div id="todoControlsBottom">
     <v-btn id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
