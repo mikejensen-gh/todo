@@ -20,7 +20,7 @@
         v-for="todo in solvedTodos"
         :key="todo.id"
       >
-        <input class="todoTitle solved" v-model="todo.title">
+        <input class="todoTitle solved" v-model="todo.title" @blur="checkTodoTitle(todo.id)">
         <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo.id)" small>Unsolve</v-btn>
         <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small>Delete</v-btn>
       </v-list>
