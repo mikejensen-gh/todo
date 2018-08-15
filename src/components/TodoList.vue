@@ -8,6 +8,7 @@
   </div>
   <div id="todoList">
     <ul id="todos">
+
       <v-list
         v-for="todo in unsolvedTodos"
         :key="todo.id"
@@ -16,14 +17,27 @@
         <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo.id)" small>Solve</v-btn>
         <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small >Delete</v-btn>
       </v-list>
-      <v-list
-        v-for="todo in solvedTodos"
-        :key="todo.id"
-      >
-        <input class="todoTitle solved" v-model="todo.title" @blur="checkTodoTitle(todo.id)">
-        <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo.id)" small>Unsolve</v-btn>
-        <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small>Delete</v-btn>
+      
+      <v-list>
+        <v-list-group>
+          <v-list-tile slot="activator">
+            <v-list-tile-content>
+              <v-list-tile-title>Solved</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile
+            v-for="todo in solvedTodos"
+            :key="todo.id"
+          >
+
+            <input class="todoTitle solved" v-model="todo.title" @blur="checkTodoTitle(todo.id)">
+            <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo.id)" small>Unsolve</v-btn>
+            <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small>Delete</v-btn>
+
+          </v-list-tile>
+        </v-list-group>
       </v-list>
+
     </ul>
   </div>
   <div id="todoControlsBottom">
