@@ -1,7 +1,5 @@
 # Sample todo app
 
-> Introducing the world's first AI-Powered Todo manager!
-
 ## Build Setup
 
 ``` bash
