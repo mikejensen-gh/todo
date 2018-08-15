@@ -7,22 +7,22 @@
   <div id="todoList">
     <ul id="todos">
       <li
-        v-for="(todo, index) in unsolvedTodos"
+        v-for="todo in unsolvedTodos"
         :key="todo.id"
         :class="{ solved: todo.solved }"
       >
         Title: {{ todo.title }}
-        <button class="solveTodo" @click="toggleTodoSolvedStatus(todo.id)">Solve</button>
-        <button class="deleteTodo" @click="deleteTodo">Delete</button>
+        <button class="solveTodo" @click="toggleSolvedState(todo.id)">Solve</button>
+        <button class="deleteTodo" @click="deleteTodo(todo.id)">Delete</button>
       </li>
       <li
-        v-for="(todo, index) in solvedTodos"
+        v-for="todo in solvedTodos"
         :key="todo.id"
         :class="{ solved: todo.solved }"
       >
         Title: {{ todo.title }}
-        <button class="solveTodo" @click="toggleTodoSolvedStatus(todo.id)">Unsolve</button>
-        <button class="deleteTodo" @click="deleteTodo">Delete</button>
+        <button class="solveTodo" @click="toggleSolvedState(todo.id)">Unsolve</button>
+        <button class="deleteTodo" @click="deleteTodo(todo.id)">Delete</button>
       </li>
     </ul>
   </div>
@@ -55,13 +55,16 @@ export default {
       this.todos = []
     },
 
-    toggleTodoSolvedStatus: function (id) {
+    toggleSolvedState: function (id) {
       const todo = this.todos.find(obj => obj.id === id)
       todo.solved = !todo.solved
     },
 
-    deleteTodo: function () {
-      return true
+    deleteTodo: function (id) {
+      const todo = this.todos.find(obj => obj.id === id)
+      const index = this.todos.indexOf(todo)
+
+      this.todos.splice(index, 1)
     }
   },
 
