@@ -1,7 +1,7 @@
 <template>
-<v-card class="todo">
+<v-card class="todo py-2">
   <v-list>
-    <v-list-tile  class="pt-2">
+    <v-list-tile  class="">
       <v-text-field
         v-model="newTodo"
         @keyup.enter="addNewTodo"
@@ -9,19 +9,18 @@
         placeholder="Add a new todo..."
       ></v-text-field>
 
-      <v-btn :disabled="newTodo === ''" id="addNewTodo" @click="addNewTodo" light>Add</v-btn>
-      <v-btn :disabled="todos.length === 0" id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
+      <v-btn :disabled="!newTodo" id="addNewTodo" @click="addNewTodo">Add</v-btn>
     </v-list-tile>
 
     <v-list-tile
       v-for="todo in unsolvedTodos"
       :key="todo.id"
     >
-    
+
       <input v-model="todo.title" @blur="checkTodoTitle(todo.id)" class="w100p">
       <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" icon><v-icon>mdi-check-circle-outline</v-icon></v-btn>
       <v-btn class="deleteTodo" @click="deleteTodo(todo)" icon><v-icon color="error">close</v-icon></v-btn>
-    
+
     </v-list-tile>
 
     <v-divider v-if="solvedTodos.length > 0 && unsolvedTodos.length > 0"></v-divider>
@@ -32,14 +31,17 @@
         v-for="todo in solvedTodos"
         :key="todo.id"
       >
-    
+
         <input v-model="todo.title" @blur="checkTodoTitle(todo.id)" class="w100p solved-todo">
         <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" icon><v-icon>mdi-check-circle</v-icon></v-btn>
         <v-btn class="deleteTodo" @click="deleteTodo(todo)" icon><v-icon color="error">close</v-icon></v-btn>
-    
+
       </v-list-tile>
     </template>
   </v-list>
+<v-layout justify-center>
+  <v-btn v-if="todos.length > 0" id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
+</v-layout>
 </v-card>
 </template>
 

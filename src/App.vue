@@ -2,7 +2,7 @@
   <div id="app">
     <v-app dark>
       <v-content>
-        <v-toolbar dark color="grey darken-3">
+        <v-toolbar dark color="grey darken-3" app>
           <v-toolbar-title class="white--text">Todo manager v0.1.0</v-toolbar-title>
 
           <v-spacer></v-spacer>
