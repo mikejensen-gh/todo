@@ -28,7 +28,7 @@
     >
 
       <input v-model="todo.title" @blur="checkTodoTitle(todo.id)" class="w100p">
-      <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" icon><v-icon>far fa-check-square</v-icon></v-btn>
+      <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" icon><v-icon>far fa-square</v-icon></v-btn>
       <v-btn class="deleteTodo" @click="deleteTodo(todo)" icon><v-icon color="error">far fa-times-circle</v-icon></v-btn>
 
     </v-list-tile>

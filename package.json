@@ -1,7 +1,7 @@
 {
   "name": "todo",
   "version": "0.1.0",
-  "homepage": "git@github.com:mikejensen-gh/mikejensen-gh.github.io",
+  "homepage": "git@github.com:mikejensen-gh/todo-web",
   "private": true,
   "scripts": {
     "build": "node build/build.js",
