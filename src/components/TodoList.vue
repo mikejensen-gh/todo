@@ -1,14 +1,13 @@
 <template>
 <div class="todo">
   <div id="todoControlsTop">
-    <form>
       <input v-model="newTodo" @keyup.enter="addNewTodo" placeholder="Add a new todo...">
       <v-btn id="addNewTodo" @click="addNewTodo">Add</v-btn>
-    </form>
+      <v-btn v-if="todos.length > 0" id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
   </div>
 
   <div id="todoList">
-    <v-list v-if="solvedTodos.length > 0 || unsolvedTodos.length > 0" two-line>
+    <v-list v-if="todos.length > 0" two-line>
       <v-list-tile
       v-for="todo in unsolvedTodos"
       :key="todo.id"
@@ -29,18 +28,14 @@
         :key="todo.id"
         >
 
-        <v-text-field class="todoTitle solved" v-model="todo.title" @blur="checkTodoTitle(todo.id)" solo disabled></v-text-field>
-        <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" color="primary" small icon><v-icon>check</v-icon></v-btn>
-        <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small icon><v-icon>close</v-icon></v-btn>
+          <v-text-field class="todoTitle solved" v-model="todo.title" @blur="checkTodoTitle(todo.id)" solo disabled></v-text-field>
+          <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" color="primary" small icon><v-icon>check</v-icon></v-btn>
+          <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small icon><v-icon>close</v-icon></v-btn>
 
-      </v-list-tile>
-    </v-list>
-  </template>
-</div>
-
-<div id="todoControlsBottom">
-  <v-btn id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
-</div>
+        </v-list-tile>
+      </v-list>
+    </template>
+  </div>
 </div>
 </template>
 
