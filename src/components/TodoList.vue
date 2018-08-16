@@ -5,7 +5,7 @@
       <v-text-field v-model="newTodo" @keyup.enter="addNewTodo" solo></v-text-field>
       <v-btn id="addNewTodo" @click="addNewTodo">Add</v-btn>
       <v-btn v-if="todos.length > 0" id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
-      <v-btn v-else disabled id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
+      <v-btn v-else disabled id="deleteAllTodos" @click="deleteAllTodo" color="error">Delete all</v-btn>
     </v-list-tile>
 
     <v-list-tile
