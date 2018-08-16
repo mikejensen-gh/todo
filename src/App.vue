@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-    <v-app>
+    <v-app dark>
       <v-content>
-        <v-toolbar dark color="primary">
+        <v-toolbar dark color="grey darken-3">
           <v-toolbar-title class="white--text">Todo manager v0.1.0</v-toolbar-title>
 
           <v-spacer></v-spacer>
+
           <v-btn icon @click="openInNewTab('https://github.com/mikejensen-gh/todo')">
             <v-icon>mdi-github-circle</v-icon>
           </v-btn>

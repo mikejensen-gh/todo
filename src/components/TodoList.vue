@@ -1,20 +1,29 @@
 <template>
-<div class="todo">
+<v-card class="todo">
   <v-list>
-    <v-list-tile>
-      <v-text-field v-model="newTodo" @keyup.enter="addNewTodo" solo></v-text-field>
-      <v-btn id="addNewTodo" @click="addNewTodo">Add</v-btn>
+    <v-list-tile  class="pt-2">
+      <v-text-field
+        v-model="newTodo"
+        @keyup.enter="addNewTodo"
+        clearable
+        placeholder="Add a new todo..."
+      ></v-text-field>
+
+      <v-btn id="addNewTodo" @click="addNewTodo" light>Add</v-btn>
       <v-btn v-if="todos.length > 0" id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
       <v-btn v-else disabled id="deleteAllTodos" @click="deleteAllTodo" color="error">Delete all</v-btn>
+    
     </v-list-tile>
 
     <v-list-tile
       v-for="todo in unsolvedTodos"
       :key="todo.id"
     >
+    
       <input v-model="todo.title" @blur="checkTodoTitle(todo.id)" class="w100p">
-      <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" color="primary" outline small icon><v-icon>check</v-icon></v-btn>
-      <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small icon><v-icon>close</v-icon></v-btn>
+      <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" icon><v-icon>mdi-check-circle-outline</v-icon></v-btn>
+      <v-btn class="deleteTodo" @click="deleteTodo(todo)" icon><v-icon color="error">close</v-icon></v-btn>
+    
     </v-list-tile>
 
     <v-divider v-if="solvedTodos.length > 0 && unsolvedTodos.length > 0"></v-divider>
@@ -25,13 +34,15 @@
         v-for="todo in solvedTodos"
         :key="todo.id"
       >
+    
         <input v-model="todo.title" @blur="checkTodoTitle(todo.id)" class="w100p solved-todo">
-        <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" color="primary" small icon><v-icon>check</v-icon></v-btn>
-        <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small icon><v-icon>close</v-icon></v-btn>
+        <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" icon><v-icon>mdi-check-circle</v-icon></v-btn>
+        <v-btn class="deleteTodo" @click="deleteTodo(todo)" icon><v-icon color="error">close</v-icon></v-btn>
+    
       </v-list-tile>
     </template>
   </v-list>
-</div>
+</v-card>
 </template>
 
 <script>
