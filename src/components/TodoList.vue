@@ -6,7 +6,7 @@
         v-model="newTodo"
         @keyup.enter="addNewTodo"
         clearable
-        placeholder="Add a new todo..."
+        placeholder="Add a new to-do..."
       ></v-text-field>
 
       <v-btn

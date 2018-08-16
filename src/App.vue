@@ -3,7 +3,7 @@
     <v-app dark>
       <v-content>
         <v-toolbar color="grey darken-3" app>
-          <v-toolbar-title class="white--text">Todo manager v0.1.0</v-toolbar-title>
+          <v-toolbar-title class="white--text">To-do manager</v-toolbar-title>
 
           <v-spacer></v-spacer>
 
@@ -34,7 +34,7 @@
               </v-flex>
 
               <v-flex xs4 text-xs-right>
-                <div>M Jensen &copy; {{ new Date().getFullYear() }}</div>
+                <div>M Jensen &copy; {{ new Date().getFullYear() }}, v0.1.0</div>
               </v-flex>
             </v-layout>
           </v-footer>
