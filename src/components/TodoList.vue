@@ -9,10 +9,8 @@
         placeholder="Add a new todo..."
       ></v-text-field>
 
-      <v-btn id="addNewTodo" @click="addNewTodo" light>Add</v-btn>
-      <v-btn v-if="todos.length > 0" id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
-      <v-btn v-else disabled id="deleteAllTodos" @click="deleteAllTodo" color="error">Delete all</v-btn>
-    
+      <v-btn :disabled="newTodo === ''" id="addNewTodo" @click="addNewTodo" light>Add</v-btn>
+      <v-btn :disabled="todos.length === 0" id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
     </v-list-tile>
 
     <v-list-tile
@@ -105,6 +103,7 @@ export default {
         return !todo.solved
       })
     },
+
     solvedTodos: function () {
       return this.todos.filter(function (todo) {
         return todo.solved
