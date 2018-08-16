@@ -6,45 +6,41 @@
       <v-btn id="addNewTodo" @click="addNewTodo">Add</v-btn>
     </form>
   </div>
+
   <div id="todoList">
+    <v-list v-if="solvedTodos.length > 0 || unsolvedTodos.length > 0" two-line>
+      <v-list-tile
+      v-for="todo in unsolvedTodos"
+      :key="todo.id"
+      >
+        <v-text-field class="todoTitle" v-model="todo.title" @blur="checkTodoTitle(todo.id)" solo></v-text-field>
+        <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" color="primary" outline small icon><v-icon>check</v-icon></v-btn>
+        <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small icon><v-icon>close</v-icon></v-btn>
+      </v-list-tile>
+    </v-list>
 
-      <v-list>
+    <v-divider v-if="solvedTodos.length > 0 && unsolvedTodos.length > 0"></v-divider>
+
+    <template v-if="solvedTodos.length > 0">
+      <v-list subheader two-line>
+        <v-subheader>Complete</v-subheader>
         <v-list-tile
-          v-for="todo in unsolvedTodos"
-          :key="todo.id"
+        v-for="todo in solvedTodos"
+        :key="todo.id"
         >
-          <v-text-field class="todoTitle" v-model="todo.title" @blur="checkTodoTitle(todo.id)" solo></v-text-field>
-          <v-spacer></v-spacer>
-          <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo.id)" small>Solve</v-btn>
-          <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small >Delete</v-btn>
-        </v-list-tile>
-      </v-list>
-      
-      <v-list>
-        <v-list-group>
-          <v-list-tile slot="activator">
-            <v-list-tile-content>
-              <v-list-tile-title>Solved</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile
-            v-for="todo in solvedTodos"
-            :key="todo.id"
-          >
 
-            <v-text-field class="todoTitle solved" v-model="todo.title" @blur="checkTodoTitle(todo.id)" solo></v-text-field>
-            <v-spacer></v-spacer>
-            <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo.id)" small>Unsolve</v-btn>
-            <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small>Delete</v-btn>
+        <v-text-field class="todoTitle solved" v-model="todo.title" @blur="checkTodoTitle(todo.id)" solo disabled></v-text-field>
+        <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" color="primary" small icon><v-icon>check</v-icon></v-btn>
+        <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small icon><v-icon>close</v-icon></v-btn>
 
-          </v-list-tile>
-        </v-list-group>
-      </v-list>
+      </v-list-tile>
+    </v-list>
+  </template>
+</div>
 
-  </div>
-  <div id="todoControlsBottom">
-    <v-btn id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
-  </div>
+<div id="todoControlsBottom">
+  <v-btn id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
+</div>
 </div>
 </template>
 
@@ -76,8 +72,7 @@ export default {
       this.todos = []
     },
 
-    toggleSolvedState: function (id) {
-      const todo = this.todos.find(obj => obj.id === id)
+    toggleSolvedState: function (todo) {
       todo.solved = !todo.solved
 
       if (todo.solved) {
@@ -89,7 +84,6 @@ export default {
     },
 
     deleteTodo: function (todo) {
-      // const todo = this.todos.find(obj => obj.id === id)
       const index = this.todos.indexOf(todo)
 
       this.todos.splice(index, 1)
