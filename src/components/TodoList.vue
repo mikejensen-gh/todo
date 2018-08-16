@@ -19,7 +19,7 @@
         @click="addNewTodo"
         class="hidden-sm-and-up"
         icon
-      ><v-icon>mdi-plus-circle-outline</v-icon></v-btn>
+      ><v-icon>far fa-plus-square</v-icon></v-btn>
     </v-list-tile>
 
     <v-list-tile
@@ -28,8 +28,8 @@
     >
 
       <input v-model="todo.title" @blur="checkTodoTitle(todo.id)" class="w100p">
-      <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" icon><v-icon>mdi-check-circle-outline</v-icon></v-btn>
-      <v-btn class="deleteTodo" @click="deleteTodo(todo)" icon><v-icon color="error">close</v-icon></v-btn>
+      <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" icon><v-icon>far fa-check-square</v-icon></v-btn>
+      <v-btn class="deleteTodo" @click="deleteTodo(todo)" icon><v-icon color="error">far fa-times-circle</v-icon></v-btn>
 
     </v-list-tile>
 
@@ -43,8 +43,8 @@
       >
 
         <input v-model="todo.title" @blur="checkTodoTitle(todo.id)" class="w100p solved-todo">
-        <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" icon><v-icon>mdi-check-circle</v-icon></v-btn>
-        <v-btn class="deleteTodo" @click="deleteTodo(todo)" icon><v-icon color="error">close</v-icon></v-btn>
+        <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" icon><v-icon>fas fa-check-square</v-icon></v-btn>
+        <v-btn class="deleteTodo" @click="deleteTodo(todo)" icon><v-icon color="error">far fa-times-circle</v-icon></v-btn>
 
       </v-list-tile>
     </template>
