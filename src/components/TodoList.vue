@@ -1,7 +1,7 @@
 <template>
 <v-card class="todo py-2">
   <v-list>
-    <v-list-tile  class="">
+    <v-list-tile>
       <v-text-field
         v-model="newTodo"
         @keyup.enter="addNewTodo"
@@ -9,7 +9,17 @@
         placeholder="Add a new todo..."
       ></v-text-field>
 
-      <v-btn :disabled="!newTodo" id="addNewTodo" @click="addNewTodo">Add</v-btn>
+      <v-btn
+        :disabled="!newTodo"
+        @click="addNewTodo"
+        class="hidden-xs-only"
+      >Add</v-btn>
+      <v-btn
+        :disabled="!newTodo"
+        @click="addNewTodo"
+        class="hidden-sm-and-up"
+        icon
+      ><v-icon>mdi-plus-circle-outline</v-icon></v-btn>
     </v-list-tile>
 
     <v-list-tile
