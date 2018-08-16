@@ -1,41 +1,36 @@
 <template>
 <div class="todo">
-  <div id="todoControlsTop">
-      <input v-model="newTodo" @keyup.enter="addNewTodo" placeholder="Add a new todo...">
+  <v-list>
+    <v-list-tile>
+      <v-text-field v-model="newTodo" @keyup.enter="addNewTodo" solo></v-text-field>
       <v-btn id="addNewTodo" @click="addNewTodo">Add</v-btn>
       <v-btn v-if="todos.length > 0" id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
-  </div>
+      <v-btn v-else disabled id="deleteAllTodos" @click="deleteAllTodos" color="error">Delete all</v-btn>
+    </v-list-tile>
 
-  <div id="todoList">
-    <v-list v-if="todos.length > 0" two-line>
-      <v-list-tile
+    <v-list-tile
       v-for="todo in unsolvedTodos"
       :key="todo.id"
-      >
-        <v-text-field class="todoTitle" v-model="todo.title" @blur="checkTodoTitle(todo.id)" solo></v-text-field>
-        <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" color="primary" outline small icon><v-icon>check</v-icon></v-btn>
-        <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small icon><v-icon>close</v-icon></v-btn>
-      </v-list-tile>
-    </v-list>
+    >
+      <input v-model="todo.title" @blur="checkTodoTitle(todo.id)" class="w100p">
+      <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" color="primary" outline small icon><v-icon>check</v-icon></v-btn>
+      <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small icon><v-icon>close</v-icon></v-btn>
+    </v-list-tile>
 
     <v-divider v-if="solvedTodos.length > 0 && unsolvedTodos.length > 0"></v-divider>
 
     <template v-if="solvedTodos.length > 0">
-      <v-list subheader two-line>
-        <v-subheader>Complete</v-subheader>
-        <v-list-tile
+      <v-subheader>Complete</v-subheader>
+      <v-list-tile
         v-for="todo in solvedTodos"
         :key="todo.id"
-        >
-
-          <v-text-field class="todoTitle solved" v-model="todo.title" @blur="checkTodoTitle(todo.id)" solo disabled></v-text-field>
-          <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" color="primary" small icon><v-icon>check</v-icon></v-btn>
-          <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small icon><v-icon>close</v-icon></v-btn>
-
-        </v-list-tile>
-      </v-list>
+      >
+        <input v-model="todo.title" @blur="checkTodoTitle(todo.id)" class="w100p solved-todo">
+        <v-btn class="toggleSolvedState" @click="toggleSolvedState(todo)" color="primary" small icon><v-icon>check</v-icon></v-btn>
+        <v-btn class="deleteTodo" @click="deleteTodo(todo)" color="error" small icon><v-icon>close</v-icon></v-btn>
+      </v-list-tile>
     </template>
-  </div>
+  </v-list>
 </div>
 </template>
 
@@ -110,8 +105,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.solved {
+.solved-todo {
   font-style: italic;
   text-decoration-line: line-through;
+}
+
+.w100p {
+  width: 100%;
 }
 </style>
